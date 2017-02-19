@@ -1,0 +1,48 @@
+Contributing Factor,Total Accidents,Total Deaths,Average Deaths
+Accelerator Defective,414,0,0.0
+Aggressive Driving/Road Rage,2980,6,0.0020134228187919465
+Alcohol Involvement,7691,34,0.004420751527759719
+Animals Action,504,0,0.0
+Backing Unsafely,27300,17,0.0006227106227106227
+Brakes Defective,2464,0,0.0
+Cell Phone (hand-held),110,0,0.0
+Cell Phone (hands-free),209,0,0.0
+Driver Inattention/Distraction,124729,116,0.0009300162752848175
+Driver Inexperience,11695,12,0.00102607952116289
+Driverless/Runaway Vehicle,102,0,0.0
+Drugs (Illegal),491,4,0.008146639511201629
+Failure to Keep Right,1855,0,0.0
+Failure to Yield Right-of-Way,42077,89,0.002115169807733441
+Fatigued/Drowsy,48231,3,6.220065932698886e-05
+Fell Asleep,1342,8,0.005961251862891207
+Following Too Closely,9526,16,0.001679613688851564
+Glare,1942,2,0.0010298661174047373
+Headlights Defective,61,0,0.0
+Illness,2364,4,0.001692047377326565
+Lane Marking Improper/Inadequate,438,0,0.0
+Lost Consciousness,20057,7,0.0003490053347958319
+Obstruction/Debris,1757,2,0.0011383039271485487
+Other Electronic Device,2224,3,0.0013489208633093526
+Other Lighting Defects,70,0,0.0
+Other Vehicular,30111,9,0.00029889409186011756
+Outside Car Distraction,10476,5,0.0004772814051164567
+Oversized Vehicle,5658,0,0.0
+Passenger Distraction,4446,52,0.011695906432748537
+Passing or Lane Usage Improper,4613,3,0.0006503360069369175
+Pavement Defective,1054,4,0.003795066413662239
+Pavement Slippery,10253,6,0.000585194577196918
+Pedestrian/Bicyclist/Other Pedestrian Error/Confusion,774,7,0.00904392764857881
+Physical Disability,9322,28,0.003003647285990131
+Prescription Medication,15886,7,0.0004406395568425028
+Reaction to Other Uninvolved Vehicle,2985,0,0.0
+Shoulders Defective/Improper,42,0,0.0
+Steering Failure,859,0,0.0
+Tire Failure/Inadequate,859,1,0.0011641443538998836
+Tow Hitch Defective,87,1,0.011494252873563218
+Traffic Control Device Improper/Non-Working,412,0,0.0
+Traffic Control Disregarded,12009,145,0.012074277625114498
+Turning Improperly,23480,5,0.00021294718909710392
+Unsafe Lane Changing,3915,0,0.0
+Unsafe Speed,2506,10,0.0039904229848363925
+View Obstructed/Limited,3818,9,0.002357255107386066
+Windshield Inadequate,49,0,0.0
