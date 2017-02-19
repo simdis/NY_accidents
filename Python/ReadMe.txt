@@ -1,0 +1,2 @@
+In order to launch the script you have to download the dataset and to define the two parameters at the top of the script. Furthermore, it is needed that two folders named ‘figures’ and ‘output’ exist in the same folder of the script (that must be launched in the directory in which it is).
+The csv in output are provided.
