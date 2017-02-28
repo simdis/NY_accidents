@@ -4,6 +4,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import hadoop.ny_accidents.util.WeekYear;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.WritableComparable;
 
@@ -24,6 +25,11 @@ public class WeekYearWritable implements WritableComparable<WeekYearWritable> {
     public WeekYearWritable(int year, int week) {
         this.week = new IntWritable(week);
         this.year = new IntWritable(year);
+    }
+
+    public WeekYearWritable(WeekYear wy){
+        this.week = new IntWritable(wy.getWeek());
+        this.year = new IntWritable(wy.getYear());
     }
     
     public IntWritable getWeek() {
