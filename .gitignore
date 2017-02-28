@@ -36,6 +36,11 @@ Thumbs.db
 .settings
 .classpath
 
+
+# Intellij #
+############
+*.iml
+
 # Other specific folders #
 #########################
 hadoop/data/*
