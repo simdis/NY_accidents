@@ -1,5 +1,5 @@
 # NY_accidents
-Some examples of using both python and Hadoop to find out some properties, defined by a university's project.
+Some examples of using both python and Hadoop to find out some properties, defined by a university project.
 
 The python examples are developed using the pandas library (http://pandas.pydata.org), whereas the corresponding Hadoop scripts are developed as a Map-Reduce job.
 
