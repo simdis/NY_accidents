@@ -40,6 +40,7 @@ Thumbs.db
 # Intellij #
 ############
 *.iml
+.idea
 
 # Other specific folders #
 #########################
