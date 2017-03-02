@@ -43,7 +43,7 @@ public class LethalAccidentsMapper implements Mapper<LongWritable,Text,WeekYearW
 
     @Override
     /**
-     * The map function generates a token <(year,week),1> for each fatal accidents.
+     * The map function generates a token <(year,week),1> for each fatal accident.
      */
     public void map(LongWritable key, Text text, OutputCollector<WeekYearWritable, IntWritable> output, Reporter reporter)
             throws IOException {
