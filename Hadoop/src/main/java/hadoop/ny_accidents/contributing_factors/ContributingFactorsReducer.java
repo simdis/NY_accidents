@@ -12,6 +12,11 @@ import org.apache.hadoop.mapred.Reporter;
 
 import hadoop.ny_accidents.types.SumAndAverageWritable;
 
+/**
+ * Reducer class for the contributing factors job.
+ * @author Simone Disabato
+ *
+ */
 public class ContributingFactorsReducer implements Reducer<Text, IntWritable, Text, SumAndAverageWritable> {
 
     @Override

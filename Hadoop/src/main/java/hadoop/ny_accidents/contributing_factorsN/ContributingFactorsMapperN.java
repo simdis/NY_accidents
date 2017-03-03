@@ -1,4 +1,4 @@
-package hadoop.ny_accidents.contributing_factors;
+package hadoop.ny_accidents.contributing_factorsN;
 
 import java.io.IOException;
 
@@ -6,10 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.JobConf;
-import org.apache.hadoop.mapred.Mapper;
-import org.apache.hadoop.mapred.OutputCollector;
-import org.apache.hadoop.mapred.Reporter;
+import org.apache.hadoop.mapreduce.Mapper;
 
 import hadoop.ny_accidents.map_attributes.NYPDAttributes;
 import hadoop.ny_accidents.map_attributes.NYPDAttributesMap;
@@ -17,10 +14,12 @@ import hadoop.ny_accidents.util.StringParser;
 
 /**
  * Mapper class for the contributing factors job.
+ * The version N is developed according to new API (org.hadoop.mapreduce).
+ * 
  * @author Simone Disabato
  *
  */
-public class ContributingFactorsMapper implements Mapper<LongWritable,Text,Text,IntWritable>{
+public class ContributingFactorsMapperN extends Mapper<LongWritable,Text,Text,IntWritable>{
 
     private static final NYPDAttributesMap attributes = new NYPDAttributesMap();
     private static final int fields = NYPDAttributes.values().length;
@@ -29,12 +28,7 @@ public class ContributingFactorsMapper implements Mapper<LongWritable,Text,Text,
     private static final int contributingFactorDescriptionLength = 60;
     
     @Override
-    public void configure(JobConf conf) {
-        // Default implementation. Does nothing
-    }
-
-    @Override
-    public void close() throws IOException {
+    public void cleanup(Context context) throws IOException {
         // Default implementation. Does nothing
     }
 
@@ -42,8 +36,8 @@ public class ContributingFactorsMapper implements Mapper<LongWritable,Text,Text,
     /**
      * The map function generates a token <contributing factor,#deaths> for each accident.
      */
-    public void map(LongWritable key, Text text, OutputCollector<Text, IntWritable> output, Reporter reporter)
-            throws IOException {
+    public void map(LongWritable key, Text text, Context context)
+            throws IOException, InterruptedException {
         // Parse the string
         String[] tokens = parser.split(text.toString(), ',', '"');
         if (tokens.length != fields) {
@@ -60,7 +54,7 @@ public class ContributingFactorsMapper implements Mapper<LongWritable,Text,Text,
         // Convert the key to a fixed length
         keyString = StringUtils.rightPad(keyString, contributingFactorDescriptionLength);
         int deaths = Integer.parseInt(tokens[attributes.getKey(NYPDAttributes.NUMBER_OF_PERSONS_KILLED)]);
-        output.collect(new Text(keyString), new IntWritable(deaths));
+        context.write(new Text(keyString), new IntWritable(deaths));
         // Now, we check for the other columns' contributing factors.
         // Note that we exploit the fact that the contributing factor's columns are one near
         // the other.
@@ -69,7 +63,7 @@ public class ContributingFactorsMapper implements Mapper<LongWritable,Text,Text,
             if (!keyString.isEmpty() && !keyString.equals("Unspecified")) {
                 // Convert the key to a fixed length
                 keyString = StringUtils.rightPad(keyString, contributingFactorDescriptionLength);
-                output.collect(new Text(keyString), new IntWritable(deaths));
+                context.write(new Text(keyString), new IntWritable(deaths));
             }
         }
         
