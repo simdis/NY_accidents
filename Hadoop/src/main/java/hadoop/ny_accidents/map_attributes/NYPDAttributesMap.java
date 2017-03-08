@@ -8,9 +8,13 @@ import java.util.EnumMap;
  *
  */
 public class NYPDAttributesMap {
-    private static EnumMap<NYPDAttributes,Integer> attributes;
+    private static EnumMap<NYPDAttributes,Integer> attributes=null;
     
     public NYPDAttributesMap() {
+        if (attributes!=null)
+        {
+            return;
+        }
         attributes = new EnumMap<NYPDAttributes,Integer>(NYPDAttributes.class);
         
         attributes.put(NYPDAttributes.DATE, 0);
