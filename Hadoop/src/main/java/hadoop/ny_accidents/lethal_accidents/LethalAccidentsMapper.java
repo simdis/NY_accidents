@@ -16,7 +16,7 @@ import hadoop.ny_accidents.map_attributes.NYPDAttributesMap;
 import hadoop.ny_accidents.types.WeekYearWritable;
 import hadoop.ny_accidents.util.DateUtility;
 import hadoop.ny_accidents.util.StringParser;
-import hadoop.ny_accidents.util.WeekYear;
+import hadoop.ny_accidents.types.WeekYear;
 
 /**
  * The Mapper for the LethalAccidents class.

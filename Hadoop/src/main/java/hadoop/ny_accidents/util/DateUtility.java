@@ -1,5 +1,7 @@
 package hadoop.ny_accidents.util;
 
+import hadoop.ny_accidents.types.WeekYear;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

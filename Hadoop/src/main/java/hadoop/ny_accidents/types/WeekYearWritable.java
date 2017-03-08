@@ -25,6 +25,12 @@ public class WeekYearWritable implements WritableComparable<WeekYearWritable> {
         this.week = new IntWritable(week);
         this.year = new IntWritable(year);
     }
+
+    public WeekYearWritable(WeekYear wy)
+    {
+        this.week = new IntWritable(wy.getWeek());
+        this.year = new IntWritable(wy.getYear());
+    }
     
     public IntWritable getWeek() {
         return week;
