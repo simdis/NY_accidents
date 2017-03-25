@@ -1,6 +1,6 @@
 package hadoop.ny_accidents.borough_per_week;
 
-import hadoop.ny_accidents.types.IntFloatCoupleWritable;
+import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -14,7 +14,7 @@ import java.util.Iterator;
  *
  * @author fusiled
  */
-public class AverageBoroughPerWeekReducer extends Reducer<Text, IntWritable, Text, IntFloatCoupleWritable> {
+public class AverageLethalBoroughPerWeekReducer extends Reducer<Text, IntWritable, Text, FloatWritable> {
 
     @Override
     public void cleanup(Context context) throws IOException {
@@ -34,12 +34,12 @@ public class AverageBoroughPerWeekReducer extends Reducer<Text, IntWritable, Tex
         if (n_weeks == -1) {
             throw new RuntimeException();
         }
-        int sum = 0;
+        float sum = 0;
         while (values.hasNext()) {
             sum += values.next().get();
         }
-        float average = ((float) sum) / n_weeks;
-        context.write(key, new IntFloatCoupleWritable(sum, average));
+        float average =  sum / n_weeks;
+        context.write(key, new FloatWritable(average));
     }
 
 }

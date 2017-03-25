@@ -2,6 +2,7 @@ package hadoop.ny_accidents.borough_per_week;
 
 
 import hadoop.ny_accidents.types.BoroughWeekWritable;
+import hadoop.ny_accidents.types.IntCoupleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -9,11 +10,11 @@ import org.apache.hadoop.mapreduce.Mapper;
 import java.io.IOException;
 
 /**
- * Get as input the output of BoroughPerWeekReducer and map into into <borough, numberOfLethalAccidents>
+ * Get as input the output of BasicBoroughPerWeekReducer and map into into <borough, numberOfLethalAccidents>
  *
  * @author fusiled
  */
-public class AverageBoroughPerWeekMapper extends Mapper<BoroughWeekWritable, IntWritable, Text, IntWritable> {
+public class AverageLethalBoroughPerWeekMapper extends Mapper<BoroughWeekWritable, IntCoupleWritable, Text, IntWritable> {
 
 
     @Override
@@ -25,9 +26,9 @@ public class AverageBoroughPerWeekMapper extends Mapper<BoroughWeekWritable, Int
     /**
      * The map function generates a token <borough, numberOfLethalAccidents> for each fatal accidents.
      */
-    public void map(BoroughWeekWritable key, IntWritable nLethalAccidentsPerWeek, Context context)
+    public void map(BoroughWeekWritable key, IntCoupleWritable nLethalAccidentsPerWeek, Context context)
             throws IOException, InterruptedException {
-        context.write(key.getBorough(), nLethalAccidentsPerWeek);
+        context.write(key.getBorough(), nLethalAccidentsPerWeek.getSecond());
     }
 
 

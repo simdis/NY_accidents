@@ -23,6 +23,12 @@ public class BoroughWeekWritable implements WritableComparable<BoroughWeekWritab
     }
 
 
+    public BoroughWeekWritable(Text borText, WeekYearWritable wyw )
+    {
+        this.borough = borText;
+        this.wyw = wyw;
+    }
+
     public BoroughWeekWritable(String borough, WeekYear wy) {
         this.borough = new Text(borough);
         this.wyw = new WeekYearWritable(wy);
@@ -55,8 +61,8 @@ public class BoroughWeekWritable implements WritableComparable<BoroughWeekWritab
 
     @Override
     public int hashCode() {
-        final int prime = 113;
-        int result = 1;
+        final int prime = 317;
+        int result = 3;
         result = prime * result + ((this.borough == null) ? 0 : this.borough.hashCode());
         result = prime * result + ((this.wyw == null) ? 0 : this.wyw.hashCode());
         return result;

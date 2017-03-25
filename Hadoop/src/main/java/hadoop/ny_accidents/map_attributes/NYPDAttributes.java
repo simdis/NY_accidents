@@ -39,7 +39,7 @@ public enum NYPDAttributes {
 
     private int id;
 
-    private NYPDAttributes(int id) {
+    NYPDAttributes(int id) {
         this.id = id;
     }
 

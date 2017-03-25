@@ -10,7 +10,7 @@ import java.util.Iterator;
 /**
  *
  */
-public class BoroughPerWeekReducer extends Reducer<BoroughWeekWritable, IntWritable, BoroughWeekWritable, IntWritable> {
+public class TotalBoroughPerWeekReducer extends Reducer<BoroughWeekWritable, IntWritable, BoroughWeekWritable, IntWritable> {
 
     @Override
     public void cleanup(Context context) throws IOException {

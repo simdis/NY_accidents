@@ -68,4 +68,8 @@ public class WeekYear implements Comparable<WeekYear> {
         }
         return true;
     }
+
+    public String toString() {
+        return this.year+","+this.week;
+    }
 }
