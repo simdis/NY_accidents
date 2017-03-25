@@ -112,7 +112,7 @@ if __name__ == "__main__":
 	############################################################################
 
 	print('Second step... how many lethal accidents per contributing factors are there?')
-	print('Observation: only the contributing factor of the first vehicle '\+
+	print('Observation: only the contributing factor of the first vehicle '+\
 		'is used, when specified.')
 	s_t = time.time()
 
@@ -161,7 +161,8 @@ if __name__ == "__main__":
 	s_t = time.time()
 
 	accidents_ny_borough = \
-		accidents_ny[['NUMBER OF PERSONS KILLED', 'Datetime', 'BOROUGH']].copy()
+		accidents_ny[['NUMBER OF PERSONS KILLED', 'Datetime', 'BOROUGH']]\
+			.copy().fillna('Unknown')
 	times = pd.DatetimeIndex(accidents_ny_borough['Datetime'])
 	# Convert the column 'NUMBER OF PERSONS KILLED' into 0-1's value column.
 	accidents_ny_borough['NUMBER OF PERSONS KILLED'] = \
@@ -207,7 +208,7 @@ if __name__ == "__main__":
 	accidents_ny_borough_weekly_g['Weekly lethal accidents'] = \
 		accidents_ny_borough_weekly_g['Lethal accidents'] / total_weeks
 
-	print(accidents_ny_borough_weekly_g.head())
+	print(accidents_ny_borough_weekly_g)
 
 	#Plot a graph
 	mpl.clf()
