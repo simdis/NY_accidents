@@ -66,6 +66,7 @@ public class NumberOfWeekProducer {
                 weekYear = new WeekYearBuilder().build(tokens[NYPDAttributes.DATE.get()]);
             } catch (ParseException e) {
                 System.out.println("Error on parsing the date string: " + tokens[NYPDAttributes.DATE.get()]);
+                System.out.println("with entry: "+buffer);
                 buffer = inputBufRead.readLine();
                 continue;
             }

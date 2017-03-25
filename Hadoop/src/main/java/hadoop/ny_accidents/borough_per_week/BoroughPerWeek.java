@@ -65,7 +65,7 @@ public class BoroughPerWeek extends Configured implements Tool {
 
 
         baseConf.setMapperClass(BaseBoroughPerWeekMapper.class);
-        baseConf.setCombinerClass(BaseBoroughPerWeekReducer.class);
+       // baseConf.setCombinerClass(BaseBoroughPerWeekReducer.class);
         baseConf.setReducerClass(BaseBoroughPerWeekReducer.class);
 
         baseConf.setInputFormatClass(TextInputFormat.class);
@@ -92,7 +92,7 @@ public class BoroughPerWeek extends Configured implements Tool {
         FileOutputFormat.setOutputPath(averageLethalAccidentsConf, out2);
 
         averageLethalAccidentsConf.setMapperClass(AverageLethalBoroughPerWeekMapper.class);
-        averageLethalAccidentsConf.setCombinerClass(AverageLethalBoroughPerWeekReducer.class);
+        //averageLethalAccidentsConf.setCombinerClass(AverageLethalBoroughPerWeekReducer.class);
         averageLethalAccidentsConf.setReducerClass(AverageLethalBoroughPerWeekReducer.class);
 
         averageLethalAccidentsConf.setMapOutputKeyClass(Text.class);
@@ -121,7 +121,7 @@ public class BoroughPerWeek extends Configured implements Tool {
         FileOutputFormat.setOutputPath(numberOfAccidentsPerBoruoughPerWeek, out3);
 
         numberOfAccidentsPerBoruoughPerWeek.setMapperClass(TotalBoroughPerWeekMapper.class);
-        numberOfAccidentsPerBoruoughPerWeek.setCombinerClass(Reducer.class);
+       // numberOfAccidentsPerBoruoughPerWeek.setCombinerClass(Reducer.class);
         numberOfAccidentsPerBoruoughPerWeek.setReducerClass(Reducer.class);
 
         numberOfAccidentsPerBoruoughPerWeek.setMapOutputKeyClass(BoroughWeekWritable.class);
@@ -149,7 +149,7 @@ public class BoroughPerWeek extends Configured implements Tool {
         FileOutputFormat.setOutputPath(intIdentity, out4);
 
         intIdentity.setMapperClass(Mapper.class);
-        intIdentity.setCombinerClass(Reducer.class);
+        //intIdentity.setCombinerClass(Reducer.class);
         intIdentity.setReducerClass(Reducer.class);
 
         intIdentity.setMapOutputKeyClass(BoroughWeekWritable.class);
