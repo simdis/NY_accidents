@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * DateUtility is a class for simple date operations.
@@ -49,7 +50,8 @@ public class DateUtility {
      */
     public WeekYear computeWeekYear(String dateString) throws ParseException {
         Date date = parseString(dateString);
-        Calendar calendar = Calendar.getInstance();
+	//set the locale.
+        Calendar calendar = Calendar.getInstance(Locale.ITALIAN);
         calendar.setTime(date);
         
         int month = calendar.get(Calendar.MONTH);
