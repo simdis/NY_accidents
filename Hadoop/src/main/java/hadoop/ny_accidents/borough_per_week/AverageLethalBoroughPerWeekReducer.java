@@ -9,10 +9,11 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * Reducer class. It computes the total number of lethal accidents foreach borough and it also compute the average.
+ * Reducer class. It computes the total number of lethal accidents foreach borough and then the average on the number of weeks
+ * is produced as output.
  * The number of weeks is obtained by Configuration attributes
  *
- * @author fusiled
+ * @author fusiled <fusiled@gmail.com>
  */
 public class AverageLethalBoroughPerWeekReducer extends Reducer<Text, IntWritable, Text, FloatWritable> {
 

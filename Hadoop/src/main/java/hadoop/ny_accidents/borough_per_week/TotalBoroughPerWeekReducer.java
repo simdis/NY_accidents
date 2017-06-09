@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- *
+ * It is just a simple IntSumReducer
+ * @author fusiled <fusiled@gmail.com>
  */
 public class TotalBoroughPerWeekReducer extends Reducer<BoroughWeekWritable, IntWritable, BoroughWeekWritable, IntWritable> {
 

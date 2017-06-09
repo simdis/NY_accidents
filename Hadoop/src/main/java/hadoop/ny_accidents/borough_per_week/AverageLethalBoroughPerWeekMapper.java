@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Get as input the output of BasicBoroughPerWeekReducer and map into into <borough, numberOfLethalAccidents>
  *
- * @author fusiled
+ * @author fusiled <fusiled@gmail.com>
  */
 public class AverageLethalBoroughPerWeekMapper extends Mapper<BoroughWeekWritable, IntCoupleWritable, Text, IntWritable> {
 

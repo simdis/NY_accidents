@@ -10,7 +10,6 @@ import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
@@ -26,19 +25,23 @@ import java.io.IOException;
 /**
  * Main class for the point 3 of the project. We want to compute the number of lethal accidents foreach week and
  * the average number of accidents per week foreach borough.
+ * @author fusiled <fusiled@gmail.com>
  */
 public class BoroughPerWeek extends Configured implements Tool {
 
     private static String intermediate = "boroughWeekTemp";
-    private static String totalAccidentsOut = "totalAccidentsOut";
+    private static String totalAccidentsOut;
+    private static String averageAccidentsOut;
     private static NumberOfWeekProducer nwp;
     private static int LETHAL_ID = 1;
     private static int NO_LETHAL_ID = 2;
 
     public static void main(String[] args) throws Exception {
         nwp = new NumberOfWeekProducer(args[0]);
+        totalAccidentsOut=args[1]+"_total_accidents_per_borough_per_week";
+        averageAccidentsOut=args[1]+"average_per_borough_weekly_basis";
         System.out.println("n_weeks is: " + nwp.getNumberOfWeeks());
-        System.out.println("average result will be saved at "+args[1]);
+        System.out.println("average result will be saved at "+averageAccidentsOut);
         System.out.println("number of accidents will be saved at "+totalAccidentsOut);
         int res = ToolRunner.run(new Configuration(), new BoroughPerWeek(), args);
         System.exit(res);
@@ -50,9 +53,16 @@ public class BoroughPerWeek extends Configured implements Tool {
 
         Configuration conf = getConf();
 
+        //Set global parameters with the Configuration instance
         conf.setInt("lethal_id", LETHAL_ID);
         conf.setInt("no_lethal_id", NO_LETHAL_ID);
         conf.setInt("n_weeks", nwp.getNumberOfWeeks());
+
+        /*
+        * JOB 1 BaseBoroughPerWeek
+        * Compute the number of lethal and non lethal accidents foreach borough
+        * of every week. This is a pre-processing phase.
+        */
 
         Job baseConf = new Job(conf);
         baseConf.setJobName("Number of lethal and non lethal accidents Per Borough Foreach Week");
@@ -65,7 +75,6 @@ public class BoroughPerWeek extends Configured implements Tool {
 
 
         baseConf.setMapperClass(BaseBoroughPerWeekMapper.class);
-       // baseConf.setCombinerClass(BaseBoroughPerWeekReducer.class);
         baseConf.setReducerClass(BaseBoroughPerWeekReducer.class);
 
         baseConf.setInputFormatClass(TextInputFormat.class);
@@ -80,19 +89,20 @@ public class BoroughPerWeek extends Configured implements Tool {
         baseConf.waitForCompletion(true);
 
         /**
-         * JOB 2
+         * JOB 2 AverageLethalBoroughPerWeek
+         * Compute one of the request: the average number of accidents per borough on weekly basis
+         * Save the output in averageAccidentsOut path
          */
         Job averageLethalAccidentsConf = new Job(conf);
         averageLethalAccidentsConf.setJarByClass(BoroughPerWeek.class);
         averageLethalAccidentsConf.setJobName("Average Accidents Per Borough on weekly basis");
 
         Path in2 = new Path(intermediate); //temp
-        Path out2 = new Path(args[1]); //output
+        Path out2 = new Path(averageAccidentsOut); //output
         FileInputFormat.setInputPaths(averageLethalAccidentsConf, in2);
         FileOutputFormat.setOutputPath(averageLethalAccidentsConf, out2);
 
         averageLethalAccidentsConf.setMapperClass(AverageLethalBoroughPerWeekMapper.class);
-        //averageLethalAccidentsConf.setCombinerClass(AverageLethalBoroughPerWeekReducer.class);
         averageLethalAccidentsConf.setReducerClass(AverageLethalBoroughPerWeekReducer.class);
 
         averageLethalAccidentsConf.setMapOutputKeyClass(Text.class);
@@ -108,7 +118,10 @@ public class BoroughPerWeek extends Configured implements Tool {
 
 
         /**
-         * JOB 3
+         * JOB 3 TotalBorough
+         * Compute the number of accidents per borough foreach week. Just take the first element
+         * of the pair produced by BaseBorough job. Observe that the reduced of this job is just an
+         * IdentityReducer
          */
 
         Job numberOfAccidentsPerBoruoughPerWeek = new Job(conf);
@@ -121,7 +134,6 @@ public class BoroughPerWeek extends Configured implements Tool {
         FileOutputFormat.setOutputPath(numberOfAccidentsPerBoruoughPerWeek, out3);
 
         numberOfAccidentsPerBoruoughPerWeek.setMapperClass(TotalBoroughPerWeekMapper.class);
-       // numberOfAccidentsPerBoruoughPerWeek.setCombinerClass(Reducer.class);
         numberOfAccidentsPerBoruoughPerWeek.setReducerClass(Reducer.class);
 
         numberOfAccidentsPerBoruoughPerWeek.setMapOutputKeyClass(BoroughWeekWritable.class);
@@ -134,34 +146,6 @@ public class BoroughPerWeek extends Configured implements Tool {
         numberOfAccidentsPerBoruoughPerWeek.setOutputValueClass(IntWritable.class);
 
         numberOfAccidentsPerBoruoughPerWeek.waitForCompletion(true);
-
-        /**
-         * JOB 4
-         */
-
-        Job intIdentity = new Job(conf);
-        intIdentity.setJarByClass(BoroughPerWeek.class);
-        intIdentity.setJobName("Intermediate Identity");
-
-        Path in4 = new Path(intermediate); //temp
-        Path out4 = new Path("intIdentity"); //output
-        FileInputFormat.setInputPaths(intIdentity, in4);
-        FileOutputFormat.setOutputPath(intIdentity, out4);
-
-        intIdentity.setMapperClass(Mapper.class);
-        //intIdentity.setCombinerClass(Reducer.class);
-        intIdentity.setReducerClass(Reducer.class);
-
-        intIdentity.setMapOutputKeyClass(BoroughWeekWritable.class);
-        intIdentity.setMapOutputValueClass(IntCoupleWritable.class);
-
-        intIdentity.setInputFormatClass(SequenceFileInputFormat.class);
-        intIdentity.setOutputFormatClass(TextOutputFormat.class);
-
-        intIdentity.setOutputKeyClass(BoroughWeekWritable.class);
-        intIdentity.setOutputValueClass(IntCoupleWritable.class);
-
-        intIdentity.waitForCompletion(true);
 
         return 0;
     }

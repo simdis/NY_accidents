@@ -11,7 +11,7 @@ import java.io.IOException;
  * We want to count the number of accidents foreach (borough, weekYear), so
  * from input we produce <(borough, weekYear), ONE >
  *
- * @author fusiled
+ * @author fusiled <fusiled@gmail.com>
  *         Modified from Simone Disabato point 1 mapper
  */
 public class TotalBoroughPerWeekMapper extends Mapper<BoroughWeekWritable, IntCoupleWritable, BoroughWeekWritable, IntWritable> {

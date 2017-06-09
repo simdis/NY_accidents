@@ -18,8 +18,8 @@ import java.text.ParseException;
  * We want to count the number of accidents foreach (borough, weekYear), so
  * from input we produce <(borough, weekYear), ONE >
  *
- * @author fusiled
- *         Modified from Simone Disabato point 1 mapper
+ * @author fusiled <fusiled@gmail.com>
+ *         Modified from the original work of Simone Disabato of point 1 mapper
  */
 public class BaseBoroughPerWeekMapper extends Mapper<Object, Text, BoroughWeekWritable, IntWritable> {
     // Define the enumeration of attributes

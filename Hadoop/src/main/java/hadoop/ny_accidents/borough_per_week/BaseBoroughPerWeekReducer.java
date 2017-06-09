@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- *
+ *Just check if an accident was lethal then add the right counter. At the end, write a couple
+ * (BoroughWeekWritable,IntCoupleWritable). IntCoupleWritable contains at the first position the number of total accidents
+ * in that week in the specified borough. At the second position of the couple there's the number of lethal accidents
+ * in that week in the specified borough.
  */
 public class BaseBoroughPerWeekReducer extends Reducer<BoroughWeekWritable, IntWritable, BoroughWeekWritable, IntCoupleWritable> {
 
